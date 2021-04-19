@@ -16,7 +16,7 @@
 		"image_sku": "18.04-LTS",
 
 		"managed_image_resource_group_name": "WebAzureProject",
-		"managed_image_name": "WebAzureProjectImage",
+		"managed_image_name": "WebAzureProject-vm",
 
 		"location": "East US",
 		"vm_size": "Standard_B1s"
