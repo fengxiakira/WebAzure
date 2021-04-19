@@ -1,0 +1,17 @@
+{
+    "if": {
+      "allOf": [
+        {
+            "field": "tags[environment]",
+            "exists": "false"
+        },
+        {
+            "field": "tags[production]",
+            "exists": "false"
+        }
+    ]
+  },
+    "then": {
+      "effect": "deny"
+    }
+}
