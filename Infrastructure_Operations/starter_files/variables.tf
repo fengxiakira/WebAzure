@@ -10,7 +10,7 @@ variable "location" {
   default = "eastus"
 }
 
-variable "securityAllowVM" {
+variable "securityGroup" {
   description = "The name of a Network Security Group"
   type = string
   default = "AzureSecurityGroup"
@@ -24,12 +24,12 @@ variable "securityTag" {
 
 variable "username"{
   type = string
-  default = "azure-test1"
+  default = "WebAzure"
 }
 
 variable "password"{
   type = string
-  default = "azure-test1-pw"
+  default = "WebAzure-pw"
 }
 
 
