@@ -21,8 +21,7 @@
 		"location": "East US",
 		"vm_size": "Standard_B1s",
 		"azure_tags": {
-			"dept": "Engineering",
-			"task": "Image deployment"
+			"udacity-dws":"123"
 		}
 	}],
 	"provisioners": [{
@@ -31,7 +30,6 @@
 			"nohup busybox httpd -f -p 80 &"
 		],
 		"inline_shebang": "/bin/sh -x",
-		"type" : "shell",
-		"execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'"
+		"type" : "shell"
 	}]
 }
