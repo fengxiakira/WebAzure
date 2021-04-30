@@ -1,8 +1,8 @@
 {
 	"variables": {
-		"client_id": "",
-		"client_secret": "",
-		"subscription_id": ""
+		"client_id": "d6960b4f-764d-46c6-9cdf-7f5032cc0443",
+		"client_secret": "vsGwE.0w.2u13b4lB2EP-Gwra1_qAX3pZJ",
+		"subscription_id": "66f68753-1d99-469b-87b9-60a248f339a2"
 	  },
 	"builders": [{
 		"type": "azure-arm",
@@ -19,7 +19,11 @@
 		"managed_image_name": "WebAzureProject-vm",
 
 		"location": "East US",
-		"vm_size": "Standard_B1s"
+		"vm_size": "Standard_B1s",
+		"azure_tags": {
+			"dept": "Engineering",
+			"task": "Image deployment"
+		}
 	}],
 	"provisioners": [{
 		"inline": [

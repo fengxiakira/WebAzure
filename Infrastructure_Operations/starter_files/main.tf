@@ -78,8 +78,6 @@ resource "azurerm_network_interface_backend_address_pool_association" "example" 
 }
 
 
-
-
 # todo ??????????
 resource "azurerm_network_security_group" "main" {
   name                = "${var.prefix}-network-security_group"
@@ -148,5 +146,9 @@ resource "azurerm_linux_virtual_machine" "main" {
   os_disk {
     storage_account_type = "Standard_LRS"
     caching              = "ReadWrite"
+  }
+
+  tags = {
+    environment = "staging"
   }
 }
