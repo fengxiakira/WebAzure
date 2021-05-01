@@ -67,13 +67,14 @@ resource "azurerm_lb" "main" {
 }
 
 resource "azurerm_lb_backend_address_pool" "main" {
+  resource_group_name = azurerm_resource_group.main.name
   loadbalancer_id = azurerm_lb.main.id
   name            = "${var.prefix}-BackEndAddressPool"
 }
 
-resource "azurerm_network_interface_backend_address_pool_association" "example" {
+resource "azurerm_network_interface_backend_address_pool_association" "main" {
   network_interface_id    = azurerm_network_interface.main.id
-  ip_configuration_name   = "${var.prefix}-networkBackendAssociation"
+  ip_configuration_name   = "internal"
   backend_address_pool_id = azurerm_lb_backend_address_pool.main.id
 }
 
@@ -84,35 +85,46 @@ resource "azurerm_network_security_group" "main" {
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
 
-  security_rule =[{
+  tags = {
+    environment = var.securityTag
+  }
+}
+
+resource "azurerm_network_security_rule" "rule1"{
     name                       = "${var.securityGroup}-allowVM"
     description = "Allow access to other VMs on the subnet."
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "*"
+    protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "3389"
+    destination_port_range     = 3389
+    destination_address_prefix =  "VirtualNetwork"
     source_address_prefix      = "VirtualNetwork"
-    destination_address_prefix = "VirtualNetwork"
-  },
-    {
+    destination_application_security_group_ids = []
+    source_application_security_group_ids = []
+    resource_group_name = azurerm_resource_group.main.name
+    network_security_group_name = azurerm_network_security_group.main.name
+}
+
+resource "azurerm_network_security_rule" "rule2"{
     name                       = "${var.securityGroup}-denyDirectAccess"
     description = "Deny direct access from the internet."
     priority                   = 101
     direction                  = "Inbound"
     access                     = "Deny"
-    protocol                   = "*"
+    protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "22"
+    destination_port_range     = 22
+    destination_address_prefix =  "VirtualNetwork"
     source_address_prefix      = "VirtualNetwork"
-    destination_address_prefix = "VirtualNetwork"
-  }]
-
-  tags = {
-    environment = "${var.securityTag}"
-  }
+    destination_application_security_group_ids = []
+    source_application_security_group_ids = []
+    resource_group_name = azurerm_resource_group.main.name
+    network_security_group_name = azurerm_network_security_group.main.name
 }
+
+
 
 resource "azurerm_availability_set" "main" {
   name                = "${var.prefix}-VMset"
