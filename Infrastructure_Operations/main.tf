@@ -44,6 +44,7 @@ resource "azurerm_subnet" "main" {
 
 
 resource "azurerm_network_interface" "main" {
+  count = var.vm_num
   name                = "${var.prefix}-nic"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
@@ -56,6 +57,7 @@ resource "azurerm_network_interface" "main" {
 }
 
 resource "azurerm_lb" "main" {
+  count = var.vm_num
   name                = "${var.prefix}-LoadBalancer"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
@@ -127,6 +129,7 @@ resource "azurerm_network_security_rule" "rule2"{
 
 
 resource "azurerm_availability_set" "main" {
+  count = var.vm_num
   name                = "${var.prefix}-VMset"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
@@ -136,7 +139,22 @@ resource "azurerm_availability_set" "main" {
   }
 }
 
+resource "azurerm_managed_disk" "main" {
+  count = var.managed_disks_num
+  name                 = "${var.prefix}-ManagedDisks"
+  location             = var.location
+  resource_group_name  = azurerm_resource_group.main.name
+  storage_account_type = "Standard_LRS"
+  create_option        = "Empty"
+  disk_size_gb         = "1"
+
+  tags = {
+    environment = "staging"
+  }
+}
+
 resource "azurerm_linux_virtual_machine" "main" {
+  count = var.vm_num
   name                            = "${var.prefix}-vm"
   resource_group_name             = azurerm_resource_group.main.name
   location                        = azurerm_resource_group.main.location

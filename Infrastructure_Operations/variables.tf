@@ -32,4 +32,14 @@ variable "password"{
   default = "WebAzure-pw"
 }
 
+variable "vm_num"{
+  type = number
+  default = 1
+}
+
+variable "managed_disks_num"{
+  type = number
+  default = 1
+}
+
 
