@@ -139,7 +139,6 @@ resource "azurerm_network_security_rule" "rule2"{
 }
 
 resource "azurerm_subnet_network_security_group_association" "main" {
-  count = var.vm_num
   subnet_id                 = azurerm_subnet.main.id
   network_security_group_id = azurerm_network_security_group.main.id
 }
@@ -206,7 +205,7 @@ resource "azurerm_virtual_machine_data_disk_attachment" "example" {
 
 resource "azurerm_dev_test_global_vm_shutdown_schedule" "main" {
   count = var.vm_num 
-  virtual_machine_id = azurerm_virtual_machine.main[count.index].id
+  virtual_machine_id = azurerm_linux_virtual_machine.main[count.index].id
   location           = azurerm_resource_group.main.location
   enabled            = true
 
@@ -217,5 +216,9 @@ resource "azurerm_dev_test_global_vm_shutdown_schedule" "main" {
     enabled         = false
     time_in_minutes = "60"
     webhook_url     = "https://sample-webhook-url.example.com"
+  }
+
+  tags = {
+    udacity-dws = "auto-shutdown"
   }
 }
