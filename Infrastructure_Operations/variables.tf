@@ -34,12 +34,17 @@ variable "password"{
 
 variable "vm_num"{
   type = number
-  default = 1
+  default = 2
 }
 
 variable "managed_disks_num"{
   type = number
-  default = 1
+  default = 2
+}
+
+variable "imageId"{
+  type = string
+  default = "/subscriptions/66f68753-1d99-469b-87b9-60a248f339a2/resourceGroups/WebAzureProject/providers/Microsoft.Compute/images/WebAzureProject-vm"
 }
 
 
