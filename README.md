@@ -45,11 +45,12 @@ packer build
   <br />
   e.g.
   <br />
-  ```json
-variable "prefix" {
-  description = "The prefix which should be used for all resources in this example"
-  type = string
-  default = "WebAzureProject-Terraform"
+```Json
+variable "prefix" 
+{
+     description = "The prefix which should be used for all resources in this example"
+     type = string
+     default = "WebAzureProject-Terraform"
 }
 ```
 
