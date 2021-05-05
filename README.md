@@ -40,12 +40,9 @@ az policy assignment list
 packer build
 ```
 4. Customize 
-  You can customize several things in variables.tf 
-  Customize default and description as you like.
-  <br />
-  e.g.
-  <br />
-```bash
+You can customize several things in variables.tf 
+Customize default and description as you like.
+```json
 variable "prefix" 
 {
      description = "The prefix which should be used for all resources in this example"
