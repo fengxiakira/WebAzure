@@ -45,7 +45,7 @@ packer build
   <br />
   e.g.
   <br />
-```Json
+```bash
 variable "prefix" 
 {
      description = "The prefix which should be used for all resources in this example"
