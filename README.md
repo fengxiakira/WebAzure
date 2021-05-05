@@ -44,6 +44,7 @@ packer build
   Customize default and description as you like.
   <br />
   e.g.
+  <br />
   ```json
 variable "prefix" {
   description = "The prefix which should be used for all resources in this example"
