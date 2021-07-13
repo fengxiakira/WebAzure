@@ -45,6 +45,7 @@ resource "azurerm_subnet" "main" {
   address_prefixes     = ["10.0.1.0/24"]
 }
 
+//many network interface card. 1 vm - 1 nic
 resource "azurerm_network_interface" "main" {
   count = var.vm_num
   name                = "${var.prefix}-nic-${count.index+1}"
@@ -121,6 +122,7 @@ resource "azurerm_network_security_rule" "rule1"{
     network_security_group_name = azurerm_network_security_group.main.name
 }
 
+// deny by default
 resource "azurerm_network_security_rule" "rule2"{
     name                       = "${var.securityGroup}-denyDirectAccess"
     description = "Deny direct access from the internet."
@@ -182,6 +184,7 @@ resource "azurerm_linux_virtual_machine" "main" {
   ]
   availability_set_id = azurerm_availability_set.main.id
 
+// packer image
   source_image_id = var.imageId
 
   os_disk {
